@@ -2,6 +2,16 @@ import { Link } from 'react-router-dom'
 
 function Dashboard() {
   const userName = localStorage.getItem('userName') || 'Employee'
+  const leaves = JSON.parse(localStorage.getItem('leaves')) || []
+
+  const userLeaves = leaves.filter((leave) => leave.employeeName === userName)
+
+  const totalLeaves = 20
+  const appliedLeaves = userLeaves.length
+  const usedLeaves = userLeaves.filter((leave) => leave.status === 'Approved').length
+  const remainingLeaves = totalLeaves - usedLeaves
+
+  const recentLeaves = [...userLeaves].reverse().slice(0, 5)
 
   return (
     <div className="dashboard-container">
@@ -24,20 +34,25 @@ function Dashboard() {
           </div>
         </header>
 
-        <section className="stats-grid">
+        <section className="stats-grid four-cards">
           <div className="stat-card">
             <h3>Total Leaves</h3>
-            <p>20</p>
+            <p>{totalLeaves}</p>
+          </div>
+
+          <div className="stat-card">
+            <h3>Applied Leaves</h3>
+            <p>{appliedLeaves}</p>
           </div>
 
           <div className="stat-card">
             <h3>Used Leaves</h3>
-            <p>5</p>
+            <p>{usedLeaves}</p>
           </div>
 
           <div className="stat-card">
             <h3>Remaining Leaves</h3>
-            <p>15</p>
+            <p>{remainingLeaves}</p>
           </div>
         </section>
 
@@ -63,24 +78,26 @@ function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Sick Leave</td>
-                  <td>2026-04-02</td>
-                  <td>2026-04-03</td>
-                  <td><span className="status approved">Approved</span></td>
-                </tr>
-                <tr>
-                  <td>Casual Leave</td>
-                  <td>2026-04-10</td>
-                  <td>2026-04-11</td>
-                  <td><span className="status pending">Pending</span></td>
-                </tr>
-                <tr>
-                  <td>Earned Leave</td>
-                  <td>2026-04-15</td>
-                  <td>2026-04-17</td>
-                  <td><span className="status rejected">Rejected</span></td>
-                </tr>
+                {recentLeaves.length > 0 ? (
+                  recentLeaves.map((leave) => (
+                    <tr key={leave.id}>
+                      <td>{leave.leaveType}</td>
+                      <td>{leave.fromDate}</td>
+                      <td>{leave.toDate}</td>
+                      <td>
+                        <span className={`status ${leave.status.toLowerCase()}`}>
+                          {leave.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4" className="no-data">
+                      No leave requests found
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
 }
 
 body {
@@ -132,7 +131,6 @@ body {
   border-radius: 10px;
   font-size: 16px;
   font-weight: bold;
-  cursor: pointer;
   transition: 0.3s;
 }
 
@@ -161,6 +159,10 @@ body {
   display: flex;
   flex-direction: column;
 }
+.four-cards {
+  grid-template-columns: repeat(4, 1fr);
+}
+
 
 .sidebar-logo {
   font-size: 28px;
@@ -315,21 +317,108 @@ table th {
   background: #fee2e2;
   color: #991b1b;
 }
+.form-section {
+  background: white;
+  padding: 28px;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
 
-@media (max-width: 900px) {
-  .dashboard-container {
-    flex-direction: column;
-  }
+.leave-form {
+  width: 100%;
+}
 
-  .sidebar {
-    width: 100%;
-  }
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
 
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
 
-  .dashboard-main {
-    padding: 20px;
-  }
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+  background: #f9fafb;
+  transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.submit-btn {
+  margin-top: 24px;
+  padding: 14px 22px;
+  background: linear-gradient(90deg, #1e3a8a, #2563eb);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+}
+.no-data {
+  text-align: center;
+  padding: 20px;
+  color: #6b7280;
+  font-weight: 500;
+}
+.action-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.approve-btn,
+.reject-btn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.approve-btn {
+  background: #16a34a;
+}
+
+.approve-btn:hover {
+  background: #15803d;
+}
+
+.reject-btn {
+  background: #dc2626;
+}
+
+.reject-btn:hover {
+  background: #b91c1c;
 }
