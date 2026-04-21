@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Dashboard() {
+  const navigate = useNavigate()
   const userName = localStorage.getItem('userName') || 'Employee'
   const leaves = JSON.parse(localStorage.getItem('leaves')) || []
 
@@ -13,6 +14,11 @@ function Dashboard() {
 
   const recentLeaves = [...userLeaves].reverse().slice(0, 5)
 
+  const handleLogout = () => {
+    localStorage.clear()
+    navigate('/')
+  }
+
   return (
     <div className="dashboard-container">
       <aside className="sidebar">
@@ -22,7 +28,7 @@ function Dashboard() {
           <Link to="/apply-leave">Apply Leave</Link>
           <Link to="/leave-history">Leave History</Link>
           <Link to="/profile">Profile</Link>
-          <Link to="/">Logout</Link>
+          <button className="logout-btn" onClick={handleLogout}>Logout</button>
         </nav>
       </aside>
 

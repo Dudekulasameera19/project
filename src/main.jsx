@@ -1,13 +1,21 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import App from './App'
-import './App.css'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
-)
+function Logout() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    localStorage.clear()
+    setTimeout(() => {
+      navigate('/')
+    }, 1500)
+  }, [])
+
+  return (
+    <div style={{ textAlign: 'center', marginTop: '100px' }}>
+      <h2>Logging out...</h2>
+    </div>
+  )
+}
+
+export default Logout

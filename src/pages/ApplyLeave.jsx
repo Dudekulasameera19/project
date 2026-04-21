@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function ApplyLeave() {
+  const navigate = useNavigate()
   const userName = localStorage.getItem('userName') || 'Employee'
 
   const [formData, setFormData] = useState({
@@ -46,6 +47,11 @@ function ApplyLeave() {
     })
   }
 
+  const handleLogout = () => {
+    localStorage.clear()
+    navigate('/')
+  }
+
   return (
     <div className="dashboard-container">
       <aside className="sidebar">
@@ -55,7 +61,7 @@ function ApplyLeave() {
           <Link to="/apply-leave" className="active-link">Apply Leave</Link>
           <Link to="/leave-history">Leave History</Link>
           <Link to="/profile">Profile</Link>
-          <Link to="/">Logout</Link>
+          <button className="logout-btn" onClick={handleLogout}>Logout</button>
         </nav>
       </aside>
 
@@ -104,7 +110,7 @@ function ApplyLeave() {
                   <option value="">Select leave type</option>
                   <option value="Sick Leave">Sick Leave</option>
                   <option value="Casual Leave">Casual Leave</option>
-                  <option value="Earned Leave">paid Leave</option>
+                  <option value="Earned Leave">Earned Leave</option>
                   <option value="Emergency Leave">Emergency Leave</option>
                 </select>
               </div>
