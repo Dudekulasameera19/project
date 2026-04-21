@@ -1,12 +1,16 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function LeaveHistory() {
+  const navigate = useNavigate()
   const userName = localStorage.getItem('userName') || 'Employee'
   const leaves = JSON.parse(localStorage.getItem('leaves')) || []
 
-  const userLeaves = leaves.filter(
-    (leave) => leave.employeeName === userName
-  )
+  const userLeaves = leaves.filter((leave) => leave.employeeName === userName)
+
+  const handleLogout = () => {
+    localStorage.clear()
+    navigate('/')
+  }
 
   return (
     <div className="dashboard-container">
@@ -17,7 +21,9 @@ function LeaveHistory() {
           <Link to="/apply-leave">Apply Leave</Link>
           <Link to="/leave-history" className="active-link">Leave History</Link>
           <Link to="/profile">Profile</Link>
-          <Link to="/">Logout</Link>
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
         </nav>
       </aside>
 
@@ -57,9 +63,7 @@ function LeaveHistory() {
                       <td>{leave.toDate}</td>
                       <td>{leave.reason}</td>
                       <td>
-                        <span
-                          className={`status ${leave.status.toLowerCase()}`}
-                        >
+                        <span className={`status ${leave.status.toLowerCase()}`}>
                           {leave.status}
                         </span>
                       </td>

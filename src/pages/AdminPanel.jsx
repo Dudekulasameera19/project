@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function AdminPanel() {
   const [leaves, setLeaves] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const storedLeaves = JSON.parse(localStorage.getItem('leaves')) || []
@@ -18,6 +19,11 @@ function AdminPanel() {
     localStorage.setItem('leaves', JSON.stringify(updatedLeaves))
   }
 
+  const handleLogout = () => {
+    localStorage.clear()
+    navigate('/')
+  }
+
   return (
     <div className="dashboard-container">
       <aside className="sidebar">
@@ -27,7 +33,9 @@ function AdminPanel() {
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/apply-leave">Apply Leave</Link>
           <Link to="/leave-history">Leave History</Link>
-          <Link to="/">Logout</Link>
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
         </nav>
       </aside>
 
