@@ -12,8 +12,23 @@ function AdminPanel() {
 
   const updateLeaveStatus = (id, newStatus) => {
     const updatedLeaves = leaves.map((leave) =>
-      leave.id === id ? { ...leave, status: newStatus } : leave
+      leave.id === id && leave.status === 'Pending'
+        ? { ...leave, status: newStatus }
+        : leave
     )
+
+    setLeaves(updatedLeaves)
+    localStorage.setItem('leaves', JSON.stringify(updatedLeaves))
+  }
+
+  const handleDeleteRecord = (id) => {
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this leave record?'
+    )
+
+    if (!confirmDelete) return
+
+    const updatedLeaves = leaves.filter((leave) => leave.id !== id)
 
     setLeaves(updatedLeaves)
     localStorage.setItem('leaves', JSON.stringify(updatedLeaves))
@@ -100,21 +115,40 @@ function AdminPanel() {
                         </span>
                       </td>
                       <td>
-                        <div className="action-group">
-                          <button
-                            className="approve-btn"
-                            onClick={() => updateLeaveStatus(leave.id, 'Approved')}
-                          >
-                            Approve
-                          </button>
+                        {leave.status === 'Pending' ? (
+                          <div className="action-group">
+                            <button
+                              className="approve-btn"
+                              onClick={() => updateLeaveStatus(leave.id, 'Approved')}
+                            >
+                              Approve
+                            </button>
 
-                          <button
-                            className="reject-btn"
-                            onClick={() => updateLeaveStatus(leave.id, 'Rejected')}
-                          >
-                            Reject
-                          </button>
-                        </div>
+                            <button
+                              className="reject-btn"
+                              onClick={() => updateLeaveStatus(leave.id, 'Rejected')}
+                            >
+                              Reject
+                            </button>
+
+                            <button
+                              className="delete-btn"
+                              onClick={() => handleDeleteRecord(leave.id)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="action-group">
+                            <span className="no-action">No Action</span>
+                            <button
+                              className="delete-btn"
+                              onClick={() => handleDeleteRecord(leave.id)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        )}
                       </td>
                     </tr>
                   ))

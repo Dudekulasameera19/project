@@ -1,15 +1,37 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 function LeaveHistory() {
   const navigate = useNavigate()
   const userName = localStorage.getItem('userName') || 'Employee'
-  const leaves = JSON.parse(localStorage.getItem('leaves')) || []
+  const [userLeaves, setUserLeaves] = useState([])
 
-  const userLeaves = leaves.filter((leave) => leave.employeeName === userName)
+  useEffect(() => {
+    const leaves = JSON.parse(localStorage.getItem('leaves')) || []
+    const filteredLeaves = leaves.filter(
+      (leave) => leave.employeeName === userName
+    )
+    setUserLeaves(filteredLeaves)
+  }, [userName])
 
   const handleLogout = () => {
     localStorage.clear()
     navigate('/')
+  }
+
+  const handleCancelLeave = (id) => {
+    const allLeaves = JSON.parse(localStorage.getItem('leaves')) || []
+
+    const updatedLeaves = allLeaves.map((leave) =>
+      leave.id === id ? { ...leave, status: 'Cancelled' } : leave
+    )
+
+    localStorage.setItem('leaves', JSON.stringify(updatedLeaves))
+
+    const filteredLeaves = updatedLeaves.filter(
+      (leave) => leave.employeeName === userName
+    )
+    setUserLeaves(filteredLeaves)
   }
 
   return (
@@ -49,6 +71,7 @@ function LeaveHistory() {
                   <th>To Date</th>
                   <th>Reason</th>
                   <th>Status</th>
+                  <th>Action</th>
                 </tr>
               </thead>
 
@@ -67,11 +90,23 @@ function LeaveHistory() {
                           {leave.status}
                         </span>
                       </td>
+                      <td className="action-cell">
+                        {leave.status === 'Pending' ? (
+                          <button
+                            className="cancel-btn"
+                            onClick={() => handleCancelLeave(leave.id)}
+                          >
+                            Cancel
+                          </button>
+                        ) : (
+                          <span className="no-action">-</span>
+                        )}
+                      </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="7" className="no-data">
+                    <td colSpan="8" className="no-data">
                       No leave records found
                     </td>
                   </tr>
