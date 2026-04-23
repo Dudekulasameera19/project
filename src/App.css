@@ -600,3 +600,140 @@ table th {
   color: #6b7280;
   font-weight: 500;
 }
+@media (min-width: 375px) and (max-width: 425px) {
+  .login-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .login-left {
+    display: none;
+  }
+
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 10px;
+  }
+
+  .sidebar-menu {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .dashboard-main {
+    padding: 15px;
+  }
+
+  .stats-grid,
+  .four-cards,
+  .profile-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}
+@media (min-width: 426px) and (max-width: 768px) {
+  .login-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .login-left {
+    display: none;
+  }
+
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .sidebar-menu {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .four-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .profile-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .four-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .profile-summary-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .profile-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .dashboard-main {
+    padding: 25px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .profile-summary-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (min-width: 1441px) and (max-width: 2560px) {
+  .dashboard-main {
+    max-width: 1600px;
+    margin: auto;
+  }
+
+  .login-layout {
+    max-width: 1400px;
+    margin: auto;
+  }
+
+  .stats-grid,
+  .profile-summary-grid {
+    gap: 25px;
+  }
+}
